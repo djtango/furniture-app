@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -38,5 +42,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
 //        ListView furnitureListView = (ListView) this.findViewById(R.id.list_view_furniture);
 //        furnitureListView.setAdapter(furnitureListAdapter);
     }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle)
 
 }

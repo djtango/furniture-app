@@ -9,10 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.deon.furnituar.BrowseFurnitureActivity">
 
-    <include layout="@layout/content_browse_furniture" />
+    <!--<include layout="@layout/content_browse_furniture" />-->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/list_view_furniture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="@string/table_1" />
 
 </FrameLayout>
