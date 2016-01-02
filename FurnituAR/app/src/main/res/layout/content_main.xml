@@ -13,8 +13,11 @@
     tools:context="com.example.deon.furnituar.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <Button
+        android:id="@+id/opt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/landing_first_option" />
+        android:text="@string/landing_first_option"
+        android:onClick="browseFurniture"/>
+
 </LinearLayout>
