@@ -1,5 +1,6 @@
 package com.example.deon.furnituar;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
        }
     }
 
+    public void renderFurniture(View view) {
+        Intent loadRenderFurnitureActivity = new Intent(this, RenderFurnitureActivity.class);
+        startActivity(loadRenderFurnitureActivity);
+    }
+
     public static class PlaceholderFragment extends Fragment {
         private ArrayAdapter<String> furnitureListAdapter;
         public PlaceholderFragment() {
@@ -45,7 +51,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
            List<String> furnitureList = new ArrayList<String>(Arrays.asList(tableList));
            furnitureListAdapter = new ArrayAdapter<String>(
                    getActivity(),
-                   R.layout.content_browse_furniture,
+                   R.layout.browse_furniture_list_item,
                    R.id.text_view_furniture_description,
                    furnitureList);
 
