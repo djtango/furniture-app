@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,22 +17,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BrowseFurnitureActivity extends AppCompatActivity {
+    public final static String SELECTED_FURNITURE = "com.example.deon.furnituar.BrowseFurnitureActivity.SELECTED_FURNITURE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_furniture);
+        Log.d("onCreate", "inside onCreate");
        if (savedInstanceState == null) {
            PlaceholderFragment newFragment = new PlaceholderFragment();
            getSupportFragmentManager().beginTransaction()
                    .add(R.id.furniture_container, newFragment)
                    .commit();
        }
-    }
-
-    public void renderFurniture(View view) {
-        Intent loadRenderFurnitureActivity = new Intent(this, RenderFurnitureActivity.class);
-        startActivity(loadRenderFurnitureActivity);
     }
 
     public static class PlaceholderFragment extends Fragment {
@@ -58,6 +57,17 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_browse_furniture, container, false);
             ListView furniture_listView = (ListView) rootView.findViewById(R.id.list_view_furniture);
             furniture_listView.setAdapter(furnitureListAdapter);
+            furniture_listView.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
+                            String selection = furnitureListAdapter.getItem(listIndex);
+                            Intent loadRenderFurnitureActivity = new Intent(getActivity(), RenderFurnitureActivity.class);
+                            loadRenderFurnitureActivity.putExtra(SELECTED_FURNITURE, selection);
+                            startActivity(loadRenderFurnitureActivity);
+                        }
+                    }
+            );
 
             return rootView;
         }
