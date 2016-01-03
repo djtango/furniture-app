@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,13 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.deon.furnituar.BrowseFurnitureActivity">
+    tools:context="com.example.deon.furnituar.BrowseFurnitureActivity"
+    tools:ignore="MergeRootFrame" >
 
-    <!--<include layout="@layout/content_browse_furniture" />-->
     <TextView
         android:id="@+id/list_view_furniture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/table_1" />
 
-</FrameLayout>
+    <FrameLayout
+        android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/furniture_container" />
+
+</LinearLayout>
