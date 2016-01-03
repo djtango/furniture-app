@@ -10,12 +10,6 @@
     tools:context="com.example.deon.furnituar.BrowseFurnitureActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/list_view_furniture"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/table_1" />
-
     <FrameLayout
         android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
         android:layout_width="match_parent"
