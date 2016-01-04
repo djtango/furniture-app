@@ -54,10 +54,10 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                    R.id.text_view_furniture_description,
                    furnitureList);
 
-            View rootView = inflater.inflate(R.layout.fragment_browse_furniture, container, false);
-            ListView furniture_listView = (ListView) rootView.findViewById(R.id.list_view_furniture);
-            furniture_listView.setAdapter(furnitureListAdapter);
-            furniture_listView.setOnItemClickListener(
+           View rootView = inflater.inflate(R.layout.fragment_browse_furniture, container, false);
+           ListView furniture_listView = (ListView) rootView.findViewById(R.id.list_view_furniture);
+           furniture_listView.setAdapter(furnitureListAdapter);
+           furniture_listView.setOnItemClickListener(
                     new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
