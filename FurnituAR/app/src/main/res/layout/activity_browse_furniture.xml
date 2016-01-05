@@ -15,7 +15,10 @@
         android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list" >
+        android:id="@+id/list"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
     </ListView>
 
 </RelativeLayout>
