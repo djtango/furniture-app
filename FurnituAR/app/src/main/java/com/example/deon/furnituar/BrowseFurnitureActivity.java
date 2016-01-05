@@ -47,8 +47,8 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                    "table 5",
                    "table 6"};
 
-           List<String> furnitureList = new ArrayList<String>(Arrays.asList(tableList));
-           furnitureListAdapter = new ArrayAdapter<String>(
+            List<String> furnitureList = new ArrayList<String>(Arrays.asList(tableList));
+            furnitureListAdapter = new ArrayAdapter<String>(
                    getActivity(),
                    R.layout.browse_furniture_list_item,
                    R.id.text_view_furniture_description,
@@ -62,7 +62,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
                             String selection = furnitureListAdapter.getItem(listIndex);
-                            Intent loadRenderFurnitureActivity = new Intent(getActivity(), RenderFurnitureActivity.class);
+                            Intent loadRenderFurnitureActivity = new Intent(getActivity(), SampleCamActivity.class);
                             loadRenderFurnitureActivity.putExtra(SELECTED_FURNITURE, selection);
                             startActivity(loadRenderFurnitureActivity);
                         }
