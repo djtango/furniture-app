@@ -20,13 +20,16 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
 
         ListView list;
         String[] item = {
-                "Google Plus",
-                "Twitter",
-                "Windows",
-                "Bing",
-                "Itunes",
-                "Wordpress",
-                "Drupal"
+                "Rocking-chair, oak veneer",
+                "Wing chair, dark grey",
+                "Armchair, dark grey",
+                "Two-seat sofa, grey ",
+                "Two-seat sofa, grey",
+                "Coffee table, black-brown, glass",
+                "Side table, beige",
+                "Coffee table, black-brown",
+                "Bookcase, oak veneer",
+                "Bookcase, oak"
         } ;
         Integer[] imageId = {
                 R.drawable.pic1,
@@ -35,17 +38,24 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
                 R.drawable.pic4,
                 R.drawable.pic5,
                 R.drawable.pic6,
-                R.drawable.pic7
+                R.drawable.pic7,
+                R.drawable.pic8,
+                R.drawable.pic9,
+                R.drawable.pic10,
+
 
         };
         String[] desc = {
-                "Description Google Plus",
-                "Description Twitter",
-                "Description Windows",
-                "Description Bing",
-                "Description Itunes",
-                "Description Wordpress",
-                "Description Drupal"
+                "The frame is made of layer-glued bent oak which is a very strong and durable material",
+                "Leg: Solid hardwood, Tinted clear lacquer. Total composition: 75% polyester, 19% modacrylic, 6% cotton",
+                "Extra covers to alternate with mean it's easy to give both your sofa and room a new look",
+                "The high back gives good support for your neck and head. Seat cushions with cold foam and a top layer of memory foam; moulds to the precise contours of your body and regains its shape when you get up",
+                "Very durable thanks to the metal construction and strong supporting fabric",
+                "The table top in tempered glass is stain resistant and easy to clean",
+                "Separate shelf for magazines, etc. helps you keep your things organised and the table top clear",
+                "Solid wood has a natural feel. Separate shelf for magazines, etc. helps you keep your things organised and the table top clear",
+                "A simple unit can be enough storage for a limited space or the foundation for a larger storage solution if your needs change.",
+                "Adjustable shelves, so you can customise your storage as needed. Surface made from natural wood veneer"
         } ;
 
 
