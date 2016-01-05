@@ -28,3 +28,12 @@
 	display: block;
 	padding-top: 100%;
 }
+
+#rotate_translate_anchor {
+	margin:auto;
+	vertical-align: middle;
+	horizontal-align: middle;
+	font-size: 30px;
+	background-color: red;
+	padding-top: 200px;
+}

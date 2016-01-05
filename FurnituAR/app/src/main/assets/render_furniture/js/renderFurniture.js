@@ -5,6 +5,7 @@ var World = {
 		x: 0,
 		y: 0
 	},
+	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
 
 	init: function initFn() {
@@ -16,9 +17,9 @@ var World = {
 	createModelAtLocation: function createModelAtLocationFn() {
 		console.log('createModelAtLocationFn: i have been called');
 		/*
-			First a location where the model should be displayed will be defined. This location will be relativ to the user.
+			First a location where the model should be displayed will be defined. This location will be relative s to the user.
 		*/
-		var location = new AR.RelativeLocation(null, 5, 0, 2);
+		var location = new AR.RelativeLocation(null, 0, 0, 2);
 
 		/*
 			Next the model object is loaded.
@@ -113,11 +114,18 @@ var World = {
 			movement.x = (World.lastTouch.x - touch.x) * -1;
 			movement.y = (World.lastTouch.y - touch.y) * -1;
 
+			if(World.rotateOrTranslate === 'translate'){
 
-			/* Rotate the car model accordingly to the calculated movement values. Note: we're slowing the movement down so that the touch action feels better */
-			World.modelEarth.translate.x += (movement.x * 0.1);
-			World.modelEarth.translate.z += (movement.y * 0.1);
+				/* Rotate the car model accordingly to the calculated movement values. Note: we're slowing the movement down so that the touch action feels better */
+				World.modelEarth.translate.x += (movement.x * 0.1);
+				World.modelEarth.translate.z += (movement.y * 0.1);
+			}
 
+			else{
+				/* Rotate the car model accordingly to the calculated movement values. Note: we're slowing the movement down so that the touch action feels better */
+				World.modelEarth.rotate.heading += (movement.x * 0.3);
+				World.modelEarth.rotate.tilt += (movement.y * 0.3);
+			}
 
 			/* Keep track of the current touch location. We need them in the next move cycle */
 			World.lastTouch.x = touch.x;
@@ -131,6 +139,16 @@ var World = {
 		console.log('addInteractionEventListener called')
 		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
 		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
+		document.getElementById("rotate_translate_anchor").addEventListener("click", function() {
+			if(World.rotateOrTranslate === 'translate'){
+				World.rotateOrTranslate = 'rotate'
+				console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
+			}
+			else{
+				World.rotateOrTranslate = 'translate'
+				console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
+			}
+		})
 
 //		document.getElementById(World.interactionContainer).addEventListener('gesturestart', World.handleGestureStart, false);
 //		document.getElementById(World.interactionContainer).addEventListener('gesturechange', World.handleGestureChange, false);
