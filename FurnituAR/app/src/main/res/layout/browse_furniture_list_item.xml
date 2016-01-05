@@ -11,13 +11,17 @@
         <ImageView
             android:id="@+id/img"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:layout_margin="10dp" />
 
         <TextView
             android:id="@+id/txt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="left"
+            android:layout_margin="5dp" />
     </TableRow>
 
     <TableRow>
