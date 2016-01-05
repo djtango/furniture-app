@@ -28,7 +28,7 @@ public class SampleCamActivity extends AbstractArchitectCamActivity {
 
 	@Override
 	public String getARchitectWorldPath() {
-		return "index.html";
+		return "render_furniture/index.html";
 	}
 
 	@Override

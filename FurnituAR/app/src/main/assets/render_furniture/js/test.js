@@ -3,11 +3,13 @@ var World = {
 	rotating: false,
 
 	init: function initFn() {
+		console.log('init: i have been called');
+
 		this.createModelAtLocation();
 	},
 
 	createModelAtLocation: function createModelAtLocationFn() {
-
+		console.log('createModelAtLocationFn: i have been called');
 		/*
 			First a location where the model should be displayed will be defined. This location will be relativ to the user.
 		*/
@@ -16,7 +18,7 @@ var World = {
 		/*
 			Next the model object is loaded.
 		*/
-		var modelEarth = new AR.Model("../earth.wt3", {
+		var modelEarth = new AR.Model("earth.wt3", {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 1,
@@ -25,7 +27,12 @@ var World = {
 			}
 		});
 
-        var indicatorImage = new AR.ImageResource("../indi.png");
+		console.log('modelEarth: ' + modelEarth);
+
+        var indicatorImage = new AR.ImageResource("indi.png");
+
+        console.log('indicatorImage: ' + indicatorImage);
+
 
         var indicatorDrawable = new AR.ImageDrawable(indicatorImage, 0.1, {
             verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
@@ -46,6 +53,7 @@ var World = {
 		World.loaded = true;
 		var e = document.getElementById('loadingMessage');
 		e.parentElement.removeChild(e);
+		console.log('worldLoaded: I have been called');
 	}
 };
 
