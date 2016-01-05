@@ -19,19 +19,19 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.example.deon.furnituar.ArchitectViewHolderInterface;
 import com.wikitude.architect.ArchitectView;
 import com.wikitude.architect.ArchitectView.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
 import com.wikitude.architect.StartupConfiguration;
 import com.wikitude.architect.StartupConfiguration.CameraPosition;
+//import com.wikitude.sdksamples.R;
 
 /**
  * Abstract activity which handles live-cycle events.
  * Feel free to extend from this activity when setting up your own AR-Activity 
  *
  */
-public abstract class AbstractArchitectCamActivity extends Activity implements ArchitectViewHolderInterface {
+public abstract class AbstractArchitectCamActivity extends Activity implements ArchitectViewHolderInterface{
 
 	/**
 	 * holds the Wikitude SDK AR-View, this is where camera, markers, compass, 3D models etc. are rendered
@@ -335,7 +335,7 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 							
 							@Override
 							public void run() {
-								Toast.makeText(AbstractArchitectCamActivity.this, R.string.location_fetching, Toast.LENGTH_SHORT).show();
+								Toast.makeText(AbstractArchitectCamActivity.this, R.string.location_fetching, Toast.LENGTH_SHORT).show();	
 							}
 						});
 			
