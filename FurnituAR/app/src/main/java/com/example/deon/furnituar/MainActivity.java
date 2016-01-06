@@ -1,11 +1,13 @@
 package com.example.deon.furnituar;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.MenuItem;
 import android.content.Intent;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +17,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Load the ImageView that will host the animation and
+        // set its background to our AnimationDrawable XML resource.
+        ImageView animatedImage = (ImageView)findViewById(R.id.animated_image);
+        animatedImage.setBackgroundResource(R.drawable.spinning_chair);
+
+        // Get the background, which has been compiled to an AnimationDrawable object.
+        AnimationDrawable frameAnimation = (AnimationDrawable) animatedImage.getBackground();
+
+        // Start the animation (looped playback by default).
+        frameAnimation.start();
+
     }
 
     public void browseFurniture(View view) {
