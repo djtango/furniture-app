@@ -9,9 +9,8 @@ var World = {
 	interactionContainer: 'gestureContainer',
 
 	init: function initFn() {
-		console.log('init: i have been called');
-
 		this.createModelAtLocation();
+		console.log('init: i have been called');
 	},
 
 	createModelAtLocation: function createModelAtLocationFn() {
@@ -50,19 +49,6 @@ var World = {
             verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
         });
 
-
-
-
-
-
-//		var buttonRotate = new AR.ImageDrawable(imgRotate, 0.2, {
-//			offsetX: 0.35,
-//			offsetY: 0.45,
-//			//zOrder: 100,
-//			verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
-
-			// onClick: this.toggleAnimateModel // GEORGE NOTE buttonRotate (along with buttonSnap below) gets passed to the drawables object in this.trackable below, which I believe is the creation of the whole thing - the tracker and the drawables (objects, 3D or otherwise), attached to it
-//		});
 
 		/*
 			Putting it all together the location and 3D model is added to an AR.GeoObject.
@@ -148,11 +134,7 @@ var World = {
 				World.rotateOrTranslate = 'translate'
 				console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
 			}
-		})
-
-//		document.getElementById(World.interactionContainer).addEventListener('gesturestart', World.handleGestureStart, false);
-//		document.getElementById(World.interactionContainer).addEventListener('gesturechange', World.handleGestureChange, false);
-//		document.getElementById(World.interactionContainer).addEventListener('gestureend', World.handleGestureEnd, false);
+		});
 	}
 
 };
