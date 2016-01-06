@@ -5,32 +5,25 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BrowseFurnitureActivity extends AppCompatActivity {
 
     public final static String SELECTED_FURNITURE = "com.example.deon.furnituar.BrowseFurnitureActivity.SELECTED_FURNITURE";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +32,19 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             PlaceholderFragment newFragment = new PlaceholderFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.furniture_container, newFragment)
+                    .add(R.id.list_container, newFragment)
                     .commit();
        }
     }
 
     public static class PlaceholderFragment extends Fragment implements SensorEventListener{
-        private ArrayAdapter<String> furnitureListAdapter;
+        private FurnitureListAdapter furnitureListAdapter;
         public PlaceholderFragment() {
         }
+
+        private String[] itemNames;
+        private Integer[] imageIDs;
+        private String[] descriptions;
 
         private SensorManager mSensorManager;
         Sensor accelerometer;
@@ -71,10 +68,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                 if (success) {
                     float orientation[] = new float[3];
                     SensorManager.getOrientation(R, orientation);
-                    azimuth = orientation[0]; // orientation contains: azimut, pitch and roll
-//                    Log.d("BROWSEFURNITUREACTIVITY","x: " + Double.toString(Math.sin(azimuth)));
-//                    Log.d("BROWSEFURNITUREACTIVITY","y: " + Double.toString(Math.cos(azimuth)));
-//                    Log.d("BROWSEFURNITUREACTIVITY",Double.toString(azimuth));
+                    azimuth = orientation[0];
                 }
             }
         }
@@ -84,29 +78,29 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
             mSensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
             accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-            String[] tableList = {
-                   "earth",
-                   "plantcolour",
-                   "table 3",
-                   "table 4",
-                   "table 5",
-                   "table 6"};
+            ListView furnitureListView;
 
-            List<String> furnitureList = new ArrayList<String>(Arrays.asList(tableList));
-            furnitureListAdapter = new ArrayAdapter<String>(
-                   getActivity(),
-                   R.layout.browse_furniture_list_item,
-                   R.id.text_view_furniture_description,
-                   furnitureList);
+            itemNames = SampleData.ITEM_NAMES;
+            imageIDs = SampleData.IMAGE_IDS;
+            descriptions = SampleData.DESCRIPTIONS;
 
+            furnitureListAdapter = new FurnitureListAdapter(
+                    getActivity(),
+                    R.layout.browse_furniture_list_item,
+                    R.id.furniture_list_name_text_view,
+                    R.id.furniture_list_image_view,
+                    R.id.furniture_list_description_text_view,
+                    itemNames,
+                    imageIDs,
+                    descriptions);
             View rootView = inflater.inflate(R.layout.fragment_browse_furniture, container, false);
-            ListView furniture_listView = (ListView) rootView.findViewById(R.id.list_view_furniture);
-            furniture_listView.setAdapter(furnitureListAdapter);
-            furniture_listView.setOnItemClickListener(
+            furnitureListView = (ListView) rootView.findViewById(R.id.list_view_furniture);
+            furnitureListView.setAdapter(furnitureListAdapter);
+            furnitureListView.setOnItemClickListener(
                     new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
-                            String selection = furnitureListAdapter.getItem(listIndex);
+                            String selection = itemNames[+listIndex];
                             try {
                                 writeJStoExtCache(selection);
                             } catch (IOException e) {
@@ -154,4 +148,5 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
 
         }
     }
+
 }

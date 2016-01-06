@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,10 +10,13 @@
     tools:context="com.example.deon.furnituar.BrowseFurnitureActivity"
     tools:ignore="MergeRootFrame" >
 
-    <FrameLayout
-        android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/furniture_container" />
+<FrameLayout
+    android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
+    android:id="@+id/list_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+</RelativeLayout>
