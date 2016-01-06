@@ -20,6 +20,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
 
         ListView list;
         String[] item = {
+                "Cloudscape Chair, white",
+                "Copenhagen Table, ash",
+                "Paris Bed, burgundy",
+                "Upholstered Armchair, grey",
+                "Wooden Table, oak",
                 "Rocking-chair, oak veneer",
                 "Wing chair, dark grey",
                 "Armchair, dark grey",
@@ -32,6 +37,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
                 "Bookcase, oak"
         } ;
         Integer[] imageId = {
+                R.drawable.a_cloudscape_chair,
+                R.drawable.a_copenhagen_table,
+                R.drawable.a_linen_paris,
+                R.drawable.a_upholstered_armchair,
+                R.drawable.a_wooden_table,
                 R.drawable.pic1,
                 R.drawable.pic2,
                 R.drawable.pic3,
@@ -46,6 +56,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
 
         };
         String[] desc = {
+                "You can relax, sit or lie like on clouds with the Cloudscape armchair. The extra soft pillows adapt to the shape of the body",
+                "95 x 200 side table that has a light and airy expression.",
+                "This Parisian blue was inspired by an Autumn afternoon in Paris, painted in a deep resonant red",
+                "Classic French style armchair inspired by Louis XV. Features hand carved detailing. ",
+                "A small Solid oak table with laquer finish",
                 "The frame is made of layer-glued bent oak which is a very strong and durable material",
                 "Leg: Solid hardwood, Tinted clear lacquer. Total composition: 75% polyester, 19% modacrylic, 6% cotton",
                 "Extra covers to alternate with mean it's easy to give both your sofa and room a new look",
