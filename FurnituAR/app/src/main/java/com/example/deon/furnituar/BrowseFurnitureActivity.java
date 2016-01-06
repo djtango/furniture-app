@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -73,7 +74,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                     azimuth = orientation[0]; // orientation contains: azimut, pitch and roll
 //                    Log.d("BROWSEFURNITUREACTIVITY","x: " + Double.toString(Math.sin(azimuth)));
 //                    Log.d("BROWSEFURNITUREACTIVITY","y: " + Double.toString(Math.cos(azimuth)));
-//                    Log.d("BROWSEFURNITUREACTIVITY",Double.toString(azimuth));
+                    Log.d("BROWSEFURNITUREACTIVITY",Double.toString(azimuth));
 
                 }
             }
@@ -107,8 +108,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
                             String selection = furnitureListAdapter.getItem(listIndex);
-                            writeJSONtoFile(selection, Float.toString(azimuth));
-                            try {writeJStoExtCache();} catch (IOException e) {e.printStackTrace();}
+                            try {
+                                writeJStoExtCache(selection);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             Intent loadRenderFurnitureActivity = new Intent(getActivity(), SampleCamActivity.class);
                             loadRenderFurnitureActivity.putExtra(SELECTED_FURNITURE, selection);
                             startActivity(loadRenderFurnitureActivity);
@@ -132,39 +136,15 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
         }
 
 
-        private void writeJSONtoFile(String target3DObj, String bearingRadians) {
-            Log.d("BrowseFurnitureActivity", "writeJSONtoFile");
-//            Log.d("getContext.getExternalCacheDir", (String)getContext().getExternalCacheDir());
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "selectedFurniture.js");
-            try {
-                FileOutputStream out = new FileOutputStream(file);
-                writeJSON(out, target3DObj, bearingRadians);
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-        private void writeJSON(OutputStream out, String target3DObj, String bearingRadians) throws IOException {
-            Log.d("BrowseFurnitureActivity", "writeJSON");
-            JsonWriter writer;
-            writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
-            writer.setIndent("  ");
-            jsonFinal(writer, target3DObj, bearingRadians);
-        }
-
-        private void jsonFinal(JsonWriter writer, String target3DObj, String bearingRadians) throws IOException {
-            Log.d("BrowseFurnitureActivity", "jsonFinal");
-            writer.beginObject();
-            writer.name("filename").value(target3DObj + ".wt3");
-            writer.name("bearing").value(bearingRadians);
-            Log.d("BrowseFurnitureActivity", target3DObj);
-            writer.endObject();
-            writer.close();
-        }
-        private void writeJStoExtCache() throws IOException {
+        private void writeJStoExtCache(String selection) throws IOException {
             File file = new File(getContext().getExternalCacheDir(), "test_write.js");
             FileOutputStream stream = new FileOutputStream(file);
             try {
-                stream.write("console.log(\"test_write loaded\");".getBytes());
+                stream.write(("console.log('test file written');\n" +
+                        "var selectionData = {\n" +
+                        "'selection': '" + selection + "',\n" +
+                        "'bearingN': " + Math.cos(azimuth) + ",\n" +
+                        "'bearingE': " + Math.sin(azimuth) + "};").getBytes());
             } finally {
                 stream.close();
             }

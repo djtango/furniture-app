@@ -1,3 +1,8 @@
+console.log('selection: ' + selectionData.selection);
+console.log('y-bearing: ' + selectionData.bearingN);
+console.log('x-bearing: ' + selectionData.bearingE);
+
+
 var World = {
 	loaded: false,
 	rotating: false,
@@ -16,9 +21,9 @@ var World = {
 	createModelAtLocation: function createModelAtLocationFn() {
 		console.log('createModelAtLocationFn: i have been called');
 
-		var location = new AR.RelativeLocation(null, 0, 0, 2);
+		var location = new AR.RelativeLocation(null, selectionData.bearingN, selectionData.bearingE, 1);
 
-		World.modelEarth = new AR.Model(targetFile, {
+		World.modelEarth = new AR.Model(selectionData.selection, {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 1,
