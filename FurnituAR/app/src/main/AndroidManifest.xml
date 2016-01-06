@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.deon.furnituar">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="22" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -9,12 +14,28 @@
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-feature android:name="android.hardware.location" android:required="true" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
-    <uses-feature android:name="android.hardware.sensor.compass" android:required="true" />
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
-    <uses-sdk android:targetSdkVersion="22" android:minSdkVersion="9"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -42,8 +63,8 @@
         </activity>
         <activity
             android:name=".RenderFurnitureActivity"
-            android:label="@string/title_activity_render_furniture"
             android:configChanges="screenSize|orientation"
+            android:label="@string/title_activity_render_furniture"
             android:parentActivityName=".BrowseFurnitureActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -51,13 +72,14 @@
         </activity>
         <activity
             android:name=".SampleCamActivity"
-            android:label="@string/title_activity_sample_cam"
             android:configChanges="screenSize|orientation"
+            android:label="@string/title_activity_sample_cam"
             android:parentActivityName=".BrowseFurnitureActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.deon.furnituar.BrowseFurnitureActivity" />
         </activity>
+        <activity android:name=".SensorActivity"></activity>
     </application>
 
 </manifest>
