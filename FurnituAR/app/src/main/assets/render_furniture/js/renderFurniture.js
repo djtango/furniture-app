@@ -21,14 +21,14 @@ var World = {
 	createModelAtLocation: function createModelAtLocationFn() {
 		console.log('createModelAtLocationFn: i have been called');
 
-		var location = new AR.RelativeLocation(null, selectionData.bearingN, selectionData.bearingE, 1);
+		var location = new AR.RelativeLocation(null, selectionData.bearingN, selectionData.bearingE, -2.5);
 
 		World.modelEarth = new AR.Model(selectionData.selection, {
 			onLoaded: this.worldLoaded,
 			scale: {
-				x: 1,
-				y: 1,
-				z: 1
+				x: 0.7,
+				y: 0.7,
+				z: 0.7
 			},
 			translate: {
 				x: 0.0,
@@ -39,15 +39,12 @@ var World = {
 
 		console.log('modelEarth: ' + this.modelEarth);
 
-        var indicatorImage = new AR.ImageResource("indi.png");
+//        var indicatorImage = new AR.ImageResource("indi.png");
         var imgRotate = new AR.ImageResource("rotateButton.png");
 
-        console.log('indicatorImage: ' + indicatorImage);
-
-
-        var indicatorDrawable = new AR.ImageDrawable(indicatorImage, 0.1, {
-            verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
-        });
+//        var indicatorDrawable = new AR.ImageDrawable(indicatorImage, 0.1, {
+//            verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
+//        });
 
 
 		/*
