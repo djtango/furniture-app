@@ -40,12 +40,11 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="SofAR"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +54,6 @@
         </activity>
         <activity
             android:name=".BrowseFurnitureActivity"
-            android:label="@string/title_activity_browse_furniture"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -63,8 +61,11 @@
         </activity>
         <activity
             android:name=".RenderFurnitureActivity"
+<<<<<<< HEAD
             android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_render_furniture"
+=======
+>>>>>>> 0446e944e77f233f1de262f0e518b065c1ae8cca
             android:parentActivityName=".BrowseFurnitureActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
