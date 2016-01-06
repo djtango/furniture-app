@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FurnituAR</string>
+    <string name="app_name">SofAR</string>
     <string name="action_settings">Settings</string>
     <string name="landing_first_option">Let\'s get started</string>
     <string name="title_activity_browse_furniture">BrowseFurnitureActivity</string>

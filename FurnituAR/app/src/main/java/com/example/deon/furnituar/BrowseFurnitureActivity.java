@@ -2,6 +2,7 @@ package com.example.deon.furnituar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,6 +64,10 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
 
         CustomList adapter = new
                 CustomList(BrowseFurnitureActivity.this, item, imageId, desc);
+
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.pic0);
 
 
         list=(ListView)findViewById(R.id.list);
