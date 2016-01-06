@@ -239,15 +239,18 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 	
 	@Override
 	protected void onStop() {
+		Log.d("AbstractedArchitectCamActivity", "onStop");
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
+		Log.d("AbstractArchitectCamActivity", "onDestry");
 		super.onDestroy();
 		
 		// call mandatory live-cycle method of architectView
 		if ( this.architectView != null ) {
+			this.architectView.clearAppCache();
 			this.architectView.onDestroy();
 		}
 	}

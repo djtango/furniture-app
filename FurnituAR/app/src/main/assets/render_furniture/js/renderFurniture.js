@@ -21,9 +21,9 @@ var World = {
 	createModelAtLocation: function createModelAtLocationFn() {
 		console.log('createModelAtLocationFn: i have been called');
 
-		var location = new AR.RelativeLocation(null, selectionData.bearingN, selectionData.bearingE, 1);
+		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
 
-		World.modelEarth = new AR.Model(selectionData.selection, {
+		World.modelEarth = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 1,

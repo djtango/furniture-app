@@ -74,8 +74,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                     azimuth = orientation[0]; // orientation contains: azimut, pitch and roll
 //                    Log.d("BROWSEFURNITUREACTIVITY","x: " + Double.toString(Math.sin(azimuth)));
 //                    Log.d("BROWSEFURNITUREACTIVITY","y: " + Double.toString(Math.cos(azimuth)));
-                    Log.d("BROWSEFURNITUREACTIVITY",Double.toString(azimuth));
-
+//                    Log.d("BROWSEFURNITUREACTIVITY",Double.toString(azimuth));
                 }
             }
         }
@@ -86,8 +85,8 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
             accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
             String[] tableList = {
-                   "table 1",
-                   "table 2",
+                   "earth",
+                   "plantcolour",
                    "table 3",
                    "table 4",
                    "table 5",
@@ -115,6 +114,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                             }
                             Intent loadRenderFurnitureActivity = new Intent(getActivity(), SampleCamActivity.class);
                             loadRenderFurnitureActivity.putExtra(SELECTED_FURNITURE, selection);
+                            Log.d("BROWSEFURNITUREACTIVITY", selection);
                             startActivity(loadRenderFurnitureActivity);
                         }
                     }
@@ -137,16 +137,18 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
 
 
         private void writeJStoExtCache(String selection) throws IOException {
-            File file = new File(getContext().getExternalCacheDir(), "test_write.js");
+            File file = new File(getContext().getExternalCacheDir(), "output.js");
             FileOutputStream stream = new FileOutputStream(file);
-            try {
-                stream.write(("console.log('test file written');\n" +
+            String jsCode = "console.log('test file written');\n" +
                         "var selectionData = {\n" +
                         "'selection': '" + selection + "',\n" +
                         "'bearingN': " + Math.cos(azimuth) + ",\n" +
-                        "'bearingE': " + Math.sin(azimuth) + "};").getBytes());
+                        "'bearingE': " + Math.sin(azimuth) + "};";
+            try {
+                stream.write(jsCode.getBytes());
             } finally {
                 stream.close();
+                Log.d("BROWSEFURNITUREACTIVITY", "JS written: " + jsCode);
             }
 
 

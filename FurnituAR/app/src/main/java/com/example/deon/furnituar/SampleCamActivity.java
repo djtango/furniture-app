@@ -151,6 +151,8 @@ public class SampleCamActivity extends AbstractArchitectCamActivity {
 
 	@Override
 	protected CameraPosition getCameraPosition() {
+
 		return CameraPosition.DEFAULT;
 	}
+
 }
