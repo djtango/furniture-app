@@ -1,15 +1,11 @@
 package com.example.deon.furnituar;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * Created by rajeevhejib on 04/01/16.
@@ -64,8 +60,11 @@ public class BrowseFurnitureActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_furniture);
 
+
         CustomList adapter = new
                 CustomList(BrowseFurnitureActivity.this, item, imageId, desc);
+
+
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
