@@ -15,10 +15,12 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            android:logo="@drawable/pic0"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#ffffff"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:transitionGroup="false" />
 
     </android.support.design.widget.AppBarLayout>
 
