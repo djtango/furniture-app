@@ -6,7 +6,7 @@
     android:background="#0845df">
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/furniture_list_image_view"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
@@ -15,25 +15,25 @@
         android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/furniture_list_name_text_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/img"
+        android:layout_toRightOf="@id/furniture_list_image_view"
         android:gravity="center_vertical"
         android:text="Title"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/des"
+        android:id="@+id/furniture_list_description_text_view"
         android:layout_width="fill_parent"
         android:layout_height="30dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/img"
-        android:layout_above="@id/txt"
+        android:layout_toRightOf="@id/furniture_list_image_view"
+        android:layout_above="@id/furniture_list_name_text_view"
         android:ellipsize="marquee"
         android:text="Description"
         android:textSize="12sp" />

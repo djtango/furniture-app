@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.deon.furnituar">
 
     <uses-sdk
@@ -14,6 +15,8 @@
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -31,13 +34,9 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <application
+    <application tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="SofAR"
@@ -61,12 +60,8 @@
         </activity>
         <activity
             android:name=".RenderFurnitureActivity"
-<<<<<<< HEAD
             android:configChanges="screenSize|orientation"
-            android:label="@string/title_activity_render_furniture"
-=======
->>>>>>> 0446e944e77f233f1de262f0e518b065c1ae8cca
-            android:parentActivityName=".BrowseFurnitureActivity">
+            android:label="@string/title_activity_render_furniture" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.deon.furnituar.BrowseFurnitureActivity" />
@@ -80,7 +75,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.deon.furnituar.BrowseFurnitureActivity" />
         </activity>
-        <activity android:name=".SensorActivity"></activity>
     </application>
 
 </manifest>

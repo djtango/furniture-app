@@ -10,15 +10,13 @@
     tools:context="com.example.deon.furnituar.BrowseFurnitureActivity"
     tools:ignore="MergeRootFrame" >
 
-
-    <ListView
-        android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/list"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-    </ListView>
+<FrameLayout
+    android:name="com.example.deon.furnituar.BrowseFurnitureActivity$PlaceholderFragment"
+    android:id="@+id/list_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
