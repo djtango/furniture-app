@@ -8,22 +8,12 @@ var World = {
 	interactionContainer: 'gestureContainer',
 
 	init: function initFn() {
-		console.log('init: i have been called');
-
 		this.createModelAtLocation();
 	},
 
 	createModelAtLocation: function createModelAtLocationFn() {
-		console.log('createModelAtLocationFn: i have been called');
-		/*
-			First a location where the model should be displayed will be defined. This location will be relativ to the user.
-		*/
 		var location = new AR.RelativeLocation(null, 5, 0, 2);
-
-		/*
-			Next the model object is loaded.
-		*/
-		World.modelEarth = new AR.Model("earth.wt3", {
+		World.modelEarth = new AR.Model(targetFile, {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 1,
