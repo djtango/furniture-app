@@ -5,8 +5,10 @@ package com.example.deon.furnituar;
  */
 public class SampleData {
     public final static String[] ITEM_NAMES = {
-            "Cloudscape Chair, white",
-            "Copenhagen Table, ash",
+//            "Cloudscape Chair, white",
+//            "Copenhagen Table, ash",
+            "earth",
+            "plantcolour",
             "Paris Bed, burgundy",
             "Upholstered Armchair, grey",
             "Wooden Table, oak",
