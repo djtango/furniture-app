@@ -13,6 +13,7 @@ var World = {
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
 	previousOrientation: undefined,
+	helpMessageShows: true,
 
 	init: function initFn() {
 		this.createModelAtLocation();
@@ -61,6 +62,22 @@ var World = {
 		World.loaded = true;
 		var e = document.getElementById('loadingMessage');
 		e.parentElement.removeChild(e);
+	},
+
+	toggleHelpMessage: function() {
+		console.log('toggleHelpMessage called');
+		var helpMessageElement = document.getElementById('help_panel');
+
+		if(World.helpMessageShows){
+			helpMessageElement.style.display = 'none';
+		}
+		else{
+			helpMessageElement.style.display = 'block';
+		}
+
+		World.helpMessageShows = !(World.helpMessageShows);
+		console.log('helpMessageShows: ' + World.helpMessageShows);
+		World.addInteractionEventListener();
 	},
 
 	handleTouchStart: function handleTouchStartFn(event) {
@@ -163,13 +180,21 @@ var World = {
 
 	addInteractionEventListener: function addInteractionEventListenerFn() {
 		console.log('addInteractionEventListener called')
-		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
-		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
 		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
 		window.addEventListener("resize", World.checkOrientation, false);
 		window.addEventListener("orientationchange", World.checkOrientation, false);
+		document.getElementById("help_button_anchor").addEventListener("click", World.toggleHelpMessage);
+		if(!World.helpMessageShows){
+			document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
+		}
+		if(World.helpMessageShows){
+			document.getElementById("close_x").addEventListener("click", World.toggleHelpMessage);
+			document.getElementById(World.interactionContainer).removeEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).removeEventListener('touchmove', World.handleTouchMove, false);
+		}
 	}
 
 };
