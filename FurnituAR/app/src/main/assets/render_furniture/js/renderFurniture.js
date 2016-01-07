@@ -10,6 +10,7 @@ var World = {
 		x: 0,
 		y: 0
 	},
+	bearing: undefined,
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
 	previousOrientation: undefined,
@@ -17,11 +18,9 @@ var World = {
 
 	init: function initFn() {
 		this.createModelAtLocation();
-		console.log('init: i have been called');
 	},
 
 	createModelAtLocation: function createModelAtLocationFn() {
-		console.log('createModelAtLocationFn: i have been called');
 
 		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
 
@@ -38,8 +37,6 @@ var World = {
 				z: 0.0
 			}
 		});
-
-		console.log('model3DObj: ' + this.modelEarth);
 
         var indicatorImage = new AR.ImageResource("indi.png");
         var imgRotate = new AR.ImageResource("rotateButton.png");
@@ -91,7 +88,7 @@ var World = {
 
 	handleTouchMove: function handleTouchMoveFn(event) {
 
-		console.log('handleTouchMove has been called!')
+//		console.log('handleTouchMove has been called!')
 		if (World.swipeAllowed){
 			var touch = {
 				x: event.touches[0].clientX,
@@ -101,14 +98,15 @@ var World = {
 				x: 0,
 				y: 0
 			};
+			var remappedMovement = World.calculateMovement;
 
-			movement.x = World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
-			movement.y = World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
+			movement.x = remappedMovement.x; // (World.lastTouch.x - touch.x) * -1;
+			movement.y = remappedMovement.y; // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
 				World.model3DObj.translate.x += (movement.x * 0.25);
-				console.log('y changing by ' + (movement.y * 0.25))
+//				console.log('y changing by ' + (movement.y * 0.25))
 				World.model3DObj.translate.z += (movement.y * 0.25);
 
 			} else{
@@ -161,6 +159,20 @@ var World = {
 		}
 	},
 
+	calculateMovement: function(touch) {
+		var remappedMovement = { 'x': 0, 'y': 0 };
+		var diffX = World.lastTouch.x - touch.x;
+		var diffY = World.lastTouch.y - touch.y;
+		console.log("diffX: " + diffX + "; diffY: " + diffY);
+		var bearing = World.bearing;
+		remappedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
+		remappedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
+		remappedMovement.x = -remappedMovement.x;
+		remappedMovement.y = -remappedMovement.y;
+		console.log(remappedMovement);
+		return remappedMovement;
+	},
+
 	calculateXMovement: function(touch) {
 		if(World.isFlipXOn) { return (World.lastTouch.y - touch.y) * -1; }
         return (World.lastTouch.x - touch.x) * -1;
@@ -172,8 +184,8 @@ var World = {
 	},
 
 	checkOrientation: function() {
-		if(window.orientation !== World.previousOrientation) {
-			World.previousOrientation = window.orientation
+		if(window.orientation !== previousOrientation) {
+			previousOrientation = window.orientation
 			World.calculateAxes();
 		}
 	},
@@ -200,3 +212,27 @@ var World = {
 };
 
 World.init();
+
+//function readBearingJSON() {
+//	var items = [];
+//	console.log("readBearingJSON");
+//	$.getJSON("file:///sdcard/Android/data/com.example.deon.furnituar/cache/bearing.json", function(data) {
+//		console.log(data);
+//		$.each(data, function(key, value) {
+//		console.log(data);
+//		console.log("key: " + key + "; value: " + value);
+//			items.push({key: value});
+//		});
+//	})
+//	return items;
+//}
+//function alignAxes(json) {
+//	World.userBearing = json.bearing;
+//}
+//$(document).ready(function() {
+//	console.log("document ready");
+//    setInterval(function() {
+//        var json = readBearingJSON();
+//        alignAxes(json);
+//    }, 333);
+//});
