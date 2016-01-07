@@ -12,6 +12,7 @@ var World = {
 	},
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
+	previousOrientation: undefined,
 
 	init: function initFn() {
 		this.createModelAtLocation();
@@ -26,9 +27,9 @@ var World = {
 		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
-				x: 0.7,
-				y: 0.7,
-				z: 0.7
+				x: 0.2,
+				y: 0.2,
+				z: 0.2
 			},
 			translate: {
 				x: 0.0,
@@ -108,14 +109,14 @@ var World = {
 
     raiseButton: function() {
 
-    	World.model3DObj.translate.y += 3;
+    	World.model3DObj.translate.y += 0.8;
     	console.log('translate Y: ' + World.model3DObj.translate.y)
 
     },
 
 	lowerButton: function() {
 
-		World.model3DObj.translate.y -= 3;
+		World.model3DObj.translate.y -= 0.8;
 		console.log('translate Y: ' + World.model3DObj.translate.y)
 
 	},
@@ -132,7 +133,9 @@ var World = {
 	},
 
 	calculateAxes: function() {
-		if(window.orientation === 90) {
+		var landscape = 90;
+
+		if(window.orientation === landscape) {
             World.isFlipXOn = true;
             World.isFlipYOn = true;
 		} else {
@@ -152,8 +155,8 @@ var World = {
 	},
 
 	checkOrientation: function() {
-		if(window.orientation !== previousOrientation) {
-			previousOrientation = window.orientation
+		if(window.orientation !== World.previousOrientation) {
+			World.previousOrientation = window.orientation
 			World.calculateAxes();
 		}
 	},
