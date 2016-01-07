@@ -84,8 +84,8 @@ var World = {
 				y: 0
 			};
 
-			movement.x = (World.lastTouch.x - touch.x) * -1;
-			movement.y = (World.lastTouch.y - touch.y) * -1;
+			movement.x = World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
+			movement.y = World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
@@ -131,6 +131,33 @@ var World = {
 		}
 	},
 
+	calculateAxes: function() {
+		if(window.orientation === 90) {
+            World.isFlipXOn = true;
+            World.isFlipYOn = true;
+		} else {
+			World.isFlipXOn = false;
+			World.isFlipYOn = false;
+		}
+	},
+
+	calculateXMovement: function(touch) {
+		if(World.isFlipXOn) { return (World.lastTouch.y - touch.y) * -1; }
+        return (World.lastTouch.x - touch.x) * -1;
+	},
+
+	calculateYMovement: function(touch) {
+		if(World.isFlipYOn) { return (World.lastTouch.x - touch.x) * -1; }
+			return (World.lastTouch.y - touch.y) * -1;
+	},
+
+	checkOrientation: function() {
+		if(window.orientation !== previousOrientation) {
+			previousOrientation = window.orientation
+			World.calculateAxes();
+		}
+	},
+
 	addInteractionEventListener: function addInteractionEventListenerFn() {
 		console.log('addInteractionEventListener called')
 		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
@@ -138,6 +165,8 @@ var World = {
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
 		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
+		window.addEventListener("resize", World.checkOrientation, false);
+		window.addEventListener("orientationchange", World.checkOrientation, false);
 	}
 
 };
