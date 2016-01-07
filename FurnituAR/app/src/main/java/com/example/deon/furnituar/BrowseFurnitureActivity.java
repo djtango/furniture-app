@@ -105,6 +105,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
                             String selection = itemNames[+listIndex];
+                            selection = getFirstWord(selection).toLowerCase();
                             try {
                                 writeJStoExtCache(selection);
                             } catch (IOException e) {
@@ -148,9 +149,12 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                 stream.close();
                 Log.d("BROWSEFURNITUREACTIVITY", "JS written: " + jsCode);
             }
-
-
+        }
+        private String getFirstWord(String selection) {
+            if(selection.contains(" ")) {
+                return selection.substring(0, selection.indexOf(" "));
+            }
+            return selection;
         }
     }
-
 }

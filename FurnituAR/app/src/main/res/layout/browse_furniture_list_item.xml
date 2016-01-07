@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip"
-    android:background="#f9f8f8">
+    android:background="#fff8ea">
 
     <ImageView
         android:id="@+id/furniture_list_image_view"
@@ -25,8 +25,8 @@
         android:layout_toRightOf="@id/furniture_list_image_view"
         android:gravity="center_vertical"
         android:text="Title"
-        android:textSize="16sp"
-        android:textColor="#636161"/>
+        android:textColor="#121216"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/furniture_list_description_text_view"
@@ -38,8 +38,8 @@
         android:layout_above="@id/furniture_list_name_text_view"
         android:ellipsize="marquee"
         android:text="Description"
-        android:textSize="12sp"
-        android:textColor="#636161" />
+        android:textColor="#121216"
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

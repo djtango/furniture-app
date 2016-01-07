@@ -12,6 +12,8 @@ var World = {
 	},
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
+	previousOrientation: undefined,
+	helpMessageShows: true,
 
 	init: function initFn() {
 		this.createModelAtLocation();
@@ -26,9 +28,9 @@ var World = {
 		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
-				x: 0.7,
-				y: 0.7,
-				z: 0.7
+				x: 0.2,
+				y: 0.2,
+				z: 0.2
 			},
 			translate: {
 				x: 0.0,
@@ -60,6 +62,22 @@ var World = {
 		World.loaded = true;
 		var e = document.getElementById('loadingMessage');
 		e.parentElement.removeChild(e);
+	},
+
+	toggleHelpMessage: function() {
+		console.log('toggleHelpMessage called');
+		var helpMessageElement = document.getElementById('help_panel');
+
+		if(World.helpMessageShows){
+			helpMessageElement.style.display = 'none';
+		}
+		else{
+			helpMessageElement.style.display = 'block';
+		}
+
+		World.helpMessageShows = !(World.helpMessageShows);
+		console.log('helpMessageShows: ' + World.helpMessageShows);
+		World.addInteractionEventListener();
 	},
 
 	handleTouchStart: function handleTouchStartFn(event) {
@@ -108,14 +126,14 @@ var World = {
 
     raiseButton: function() {
 
-    	World.model3DObj.translate.y += 3;
+    	World.model3DObj.translate.y += 0.8;
     	console.log('translate Y: ' + World.model3DObj.translate.y)
 
     },
 
 	lowerButton: function() {
 
-		World.model3DObj.translate.y -= 3;
+		World.model3DObj.translate.y -= 0.8;
 		console.log('translate Y: ' + World.model3DObj.translate.y)
 
 	},
@@ -132,7 +150,9 @@ var World = {
 	},
 
 	calculateAxes: function() {
-		if(window.orientation === 90) {
+		var landscape = 90;
+
+		if(window.orientation === landscape) {
             World.isFlipXOn = true;
             World.isFlipYOn = true;
 		} else {
@@ -152,21 +172,29 @@ var World = {
 	},
 
 	checkOrientation: function() {
-		if(window.orientation !== previousOrientation) {
-			previousOrientation = window.orientation
+		if(window.orientation !== World.previousOrientation) {
+			World.previousOrientation = window.orientation
 			World.calculateAxes();
 		}
 	},
 
 	addInteractionEventListener: function addInteractionEventListenerFn() {
 		console.log('addInteractionEventListener called')
-		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
-		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
 		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
 		window.addEventListener("resize", World.checkOrientation, false);
 		window.addEventListener("orientationchange", World.checkOrientation, false);
+		document.getElementById("help_button_anchor").addEventListener("click", World.toggleHelpMessage);
+		if(!World.helpMessageShows){
+			document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
+		}
+		if(World.helpMessageShows){
+			document.getElementById("close_x").addEventListener("click", World.toggleHelpMessage);
+			document.getElementById(World.interactionContainer).removeEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).removeEventListener('touchmove', World.handleTouchMove, false);
+		}
 	}
 
 };
