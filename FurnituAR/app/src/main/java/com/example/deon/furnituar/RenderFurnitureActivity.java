@@ -15,7 +15,7 @@ public class RenderFurnitureActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.pic0);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
 
         Intent intent = getIntent();
         String selection = intent.getStringExtra(BrowseFurnitureActivity.SELECTED_FURNITURE);

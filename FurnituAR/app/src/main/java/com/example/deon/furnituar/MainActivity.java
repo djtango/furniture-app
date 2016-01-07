@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.pic0);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
 
         ImageView animatedImage = (ImageView) findViewById(R.id.animated_image);
         animatedImage.setBackgroundResource(R.drawable.spinning_chair);
