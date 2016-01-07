@@ -98,10 +98,10 @@ var World = {
 				x: 0,
 				y: 0
 			};
-			var remappedMovement = World.calculateMovement;
+//			var remappedMovement = World.calculateMovement;
 
-			movement.x = remappedMovement.x; // (World.lastTouch.x - touch.x) * -1;
-			movement.y = remappedMovement.y; // (World.lastTouch.y - touch.y) * -1;
+			movement.x = World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
+			movement.y = World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
@@ -124,14 +124,14 @@ var World = {
 
     raiseButton: function() {
 
-    	World.model3DObj.translate.y += 0.8;
+    	World.model3DObj.translate.y += 1.2;
     	console.log('translate Y: ' + World.model3DObj.translate.y)
 
     },
 
 	lowerButton: function() {
 
-		World.model3DObj.translate.y -= 0.8;
+		World.model3DObj.translate.y -= 1.2;
 		console.log('translate Y: ' + World.model3DObj.translate.y)
 
 	},

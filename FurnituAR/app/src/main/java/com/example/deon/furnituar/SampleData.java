@@ -6,7 +6,7 @@ package com.example.deon.furnituar;
 public class SampleData {
     public final static String[] ITEM_NAMES = {
             "Round Dining Table, marble",
-            "Sofa, green pattern",
+            "Zebra Sofa, green pattern",
             "Cloudscape Chair, white",
             "Copenhagen Table, ash",
             "Paris Linen, blue",
