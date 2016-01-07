@@ -25,9 +25,7 @@ var World = {
 
 		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
 
-				World.model3DObj = new AR.Model('earth.wt3', {
-
-//		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
+		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 0.2,
