@@ -29,6 +29,10 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_furniture);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
+
         if (savedInstanceState == null) {
             PlaceholderFragment newFragment = new PlaceholderFragment();
             getSupportFragmentManager().beginTransaction()

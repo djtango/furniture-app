@@ -9,8 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@drawable/pic0"
-    android:scaleType="centerCrop"
     android:gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.deon.furnituar.MainActivity"
@@ -22,5 +20,11 @@
         android:layout_height="wrap_content"
         android:text="@string/landing_first_option"
         android:onClick="browseFurniture"/>
+    <ImageView
+        android:id="@+id/animated_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
+    <!--android:background="@drawable/pic0"-->
+    <!--android:scaleType="centerCrop"-->
