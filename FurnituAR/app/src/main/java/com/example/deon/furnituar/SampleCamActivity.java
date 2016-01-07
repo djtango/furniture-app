@@ -2,6 +2,7 @@ package com.example.deon.furnituar;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -183,7 +184,12 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 				float orientation[] = new float[3];
 				SensorManager.getOrientation(R, orientation);
 				azimuth = orientation[0];
-				Log.d("ARVIEW-DEBUG", Float.toString(azimuth));
+//				Log.d("ARVIEW-DEBUG", Float.toString(azimuth));
+				try {
+					writeBearingToJSON(azimuth);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -207,5 +213,16 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 	public void onPause() {
 		super.onPause();
 		mSensorManager.unregisterListener(this);
+	}
+	private void writeBearingToJSON(Float azimuth) throws IOException {
+		File file = new File(getExternalCacheDir(), "bearing.json");
+		FileOutputStream stream = new FileOutputStream(file);
+		String jsonString = "{'bearing': " + azimuth + "}";
+		try {
+			stream.write(jsonString.getBytes());
+		} finally {
+			stream.close();
+//			Log.d("ARVIEW", "JSON Written: " + jsonString);
+		}
 	}
 }

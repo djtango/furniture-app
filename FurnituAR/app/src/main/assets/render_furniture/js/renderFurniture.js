@@ -10,6 +10,7 @@ var World = {
 		x: 0,
 		y: 0
 	},
+	bearing: undefined,
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
 //	previousOrientation: undefined,
@@ -80,9 +81,10 @@ var World = {
 				x: 0,
 				y: 0
 			};
+			var remappedMovement = World.calculateMovement;
 
-			movement.x = World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
-			movement.y = World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
+			movement.x = remappedMovement.x; // (World.lastTouch.x - touch.x) * -1;
+			movement.y = remappedMovement.y; // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
@@ -140,6 +142,20 @@ var World = {
 		}
 	},
 
+	calculateMovement: function(touch) {
+		var remappedMovement = { 'x': 0, 'y': 0 };
+		var diffX = World.lastTouch.x - touch.x;
+		var diffY = World.lastTouch.y - touch.y;
+		console.log("diffX: " + diffX + "; diffY: " + diffY);
+		var bearing = World.bearing;
+		remappedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
+		remappedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
+		remappedMovement.x = -remappedMovement.x;
+		remappedMovement.y = -remappedMovement.y;
+		console.log(remappedMovement);
+		return remappedMovement;
+	},
+
 	calculateXMovement: function(touch) {
 		if(World.isFlipXOn) { return (World.lastTouch.y - touch.y) * -1; }
         return (World.lastTouch.x - touch.x) * -1;
@@ -171,3 +187,28 @@ var World = {
 };
 
 World.init();
+
+function readBearingJSON() {
+	var items = [];
+	console.log("readBearingJSON");
+	$.getJSON("file:///sdcard/Android/data/com.example.deon.furnituar/cache/bearing.json", function(data) {
+		console.log(data);
+		$.each(data, function(key, value) {
+		console.log(data);
+		console.log("key: " + key + "; value: " + value);
+			items.push({key: value});
+		});
+	})
+	return items;
+}
+function alignAxes(json) {
+	World.userBearing = json.bearing;
+}
+$(document).ready(function() {
+	console.log("document ready");
+    setInterval(function() {
+        var json = readBearingJSON();
+        alignAxes(json);
+    }, 333);
+});
+
