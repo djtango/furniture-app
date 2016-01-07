@@ -189,17 +189,12 @@ var World = {
 World.init();
 
 function readBearingJSON() {
-	var items = [];
-//	console.log("readBearingJSON");
+	var jsonData;
 	$.getJSON("http://localhost:43770", function(data) {
-		console.log(data);
-		$.each(data, function(key, value) {
-		console.log(data);
-		console.log("key: " + key + "; value: " + value);
-			items.push({key: value});
-		});
+		console.log("data.bearing: " + data.bearing);
+		items = data;
 	})
-	return items;
+	return jsonData;
 }
 function alignAxes(json) {
 	World.userBearing = json.bearing;
@@ -211,4 +206,3 @@ $(document).ready(function() {
         alignAxes(json);
     }, 333);
 });
-
