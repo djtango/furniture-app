@@ -32,7 +32,7 @@ var World = {
 			},
 			translate: {
 				x: 0.0,
-				y: 0.05,
+				y: 1, //originally 0.05
 				z: 0.0
 			}
 		});
@@ -89,9 +89,12 @@ var World = {
 
 			if(World.rotateOrTranslate === 'translate'){
 
-				World.model3DObj.translate.x += (movement.x * 0.1);
-				World.model3DObj.translate.z += (movement.y * 0.1);
+				World.model3DObj.translate.x += (movement.x * 0.25);
+				console.log('y changing by ' + (movement.y * 0.25))
+				World.model3DObj.translate.z += (movement.y * 0.25);
+
 			} else{
+
 				World.model3DObj.rotate.heading += (movement.x * 0.3);
 				World.model3DObj.rotate.tilt += (movement.y * 0.3);
 			}
@@ -103,19 +106,38 @@ var World = {
 		event.preventDefault();
     },
 
+    raiseButton: function() {
+
+    	World.model3DObj.translate.y += 3;
+    	console.log('translate Y: ' + World.model3DObj.translate.y)
+
+    },
+
+	lowerButton: function() {
+
+		World.model3DObj.translate.y -= 3;
+		console.log('translate Y: ' + World.model3DObj.translate.y)
+
+	},
+
+    rotateTranslateToggle: function() {
+
+		if(World.rotateOrTranslate === 'translate'){
+			World.rotateOrTranslate = 'rotate'
+			console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
+		} else{
+			World.rotateOrTranslate = 'translate'
+			console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
+		}
+	},
+
 	addInteractionEventListener: function addInteractionEventListenerFn() {
 		console.log('addInteractionEventListener called')
 		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
 		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
-		document.getElementById("rotate_translate_anchor").addEventListener("click", function() {
-			if(World.rotateOrTranslate === 'translate'){
-				World.rotateOrTranslate = 'rotate'
-				console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
-			} else{
-				World.rotateOrTranslate = 'translate'
-				console.log('rotateOrTranslate: ' + World.rotateOrTranslate)
-			}
-		});
+		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
+		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
+		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
 	}
 
 };
