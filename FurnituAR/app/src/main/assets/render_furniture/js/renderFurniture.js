@@ -12,15 +12,13 @@ var World = {
 	},
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
-	previousOrientation: undefined,
+//	previousOrientation: undefined,
 
 	init: function initFn() {
 		this.createModelAtLocation();
-		console.log('init: i have been called');
 	},
 
 	createModelAtLocation: function createModelAtLocationFn() {
-		console.log('createModelAtLocationFn: i have been called');
 
 		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
 
@@ -37,8 +35,6 @@ var World = {
 				z: 0.0
 			}
 		});
-
-		console.log('model3DObj: ' + this.modelEarth);
 
         var indicatorImage = new AR.ImageResource("indi.png");
         var imgRotate = new AR.ImageResource("rotateButton.png");
@@ -74,7 +70,7 @@ var World = {
 
 	handleTouchMove: function handleTouchMoveFn(event) {
 
-		console.log('handleTouchMove has been called!')
+//		console.log('handleTouchMove has been called!')
 		if (World.swipeAllowed){
 			var touch = {
 				x: event.touches[0].clientX,
@@ -91,7 +87,7 @@ var World = {
 			if(World.rotateOrTranslate === 'translate'){
 
 				World.model3DObj.translate.x += (movement.x * 0.25);
-				console.log('y changing by ' + (movement.y * 0.25))
+//				console.log('y changing by ' + (movement.y * 0.25))
 				World.model3DObj.translate.z += (movement.y * 0.25);
 
 			} else{
@@ -155,14 +151,14 @@ var World = {
 	},
 
 	checkOrientation: function() {
-		if(window.orientation !== World.previousOrientation) {
-			World.previousOrientation = window.orientation
+		if(window.orientation !== previousOrientation) {
+			previousOrientation = window.orientation
 			World.calculateAxes();
 		}
 	},
 
 	addInteractionEventListener: function addInteractionEventListenerFn() {
-		console.log('addInteractionEventListener called')
+//		console.log('addInteractionEventListener called')
 		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
 		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);

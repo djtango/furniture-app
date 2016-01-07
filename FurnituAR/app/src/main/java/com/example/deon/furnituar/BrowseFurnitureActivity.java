@@ -105,7 +105,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int listIndex, long id) {
                             String selection = itemNames[+listIndex];
-                            selection = getFirstWord(selection);
+                            selection = getFirstWord(selection).toLowerCase();
                             try {
                                 writeJStoExtCache(selection);
                             } catch (IOException e) {

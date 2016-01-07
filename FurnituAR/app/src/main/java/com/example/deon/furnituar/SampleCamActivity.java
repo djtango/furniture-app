@@ -5,10 +5,15 @@ import java.io.FileOutputStream;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.wikitude.architect.ArchitectView;
@@ -19,7 +24,7 @@ import com.wikitude.architect.StartupConfiguration.CameraPosition;
 
 //import com.example.deon.furnituar.R;
 
-public class SampleCamActivity extends AbstractArchitectCamActivity {
+public class SampleCamActivity extends AbstractArchitectCamActivity implements SensorEventListener{
 
 	/**
 	 * last time the calibration toast was shown, this avoids too many toast shown when compass needs calibration
@@ -155,4 +160,52 @@ public class SampleCamActivity extends AbstractArchitectCamActivity {
 		return CameraPosition.DEFAULT;
 	}
 
+	/* Set up Compass listener */
+	private SensorManager mSensorManager;
+	Sensor accelerometer;
+	Sensor magnetometer;
+	float azimuth;
+
+	public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+
+	float[] mGravity;
+	float[] mGeomagnetic;
+	public void onSensorChanged(SensorEvent event) {
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+			mGravity = event.values;
+		if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+			mGeomagnetic = event.values;
+		if (mGravity != null && mGeomagnetic != null) {
+			float R[] = new float[9];
+			float I[] = new float[9];
+			boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+			if (success) {
+				float orientation[] = new float[3];
+				SensorManager.getOrientation(R, orientation);
+				azimuth = orientation[0];
+				Log.d("ARVIEW-DEBUG", Float.toString(azimuth));
+			}
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate( savedInstanceState );
+		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+		mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mSensorManager.unregisterListener(this);
+	}
 }
