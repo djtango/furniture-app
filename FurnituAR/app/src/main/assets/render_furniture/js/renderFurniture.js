@@ -190,8 +190,8 @@ World.init();
 
 function readBearingJSON() {
 	var items = [];
-	console.log("readBearingJSON");
-	$.getJSON("file:///sdcard/Android/data/com.example.deon.furnituar/cache/bearing.json", function(data) {
+//	console.log("readBearingJSON");
+	$.getJSON("http://localhost:43770", function(data) {
 		console.log(data);
 		$.each(data, function(key, value) {
 		console.log(data);
@@ -205,7 +205,7 @@ function alignAxes(json) {
 	World.userBearing = json.bearing;
 }
 $(document).ready(function() {
-	console.log("document ready");
+//	console.log("document ready");
     setInterval(function() {
         var json = readBearingJSON();
         alignAxes(json);
