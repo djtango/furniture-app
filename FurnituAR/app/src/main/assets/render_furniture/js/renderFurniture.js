@@ -25,7 +25,9 @@ var World = {
 
 		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
 
-		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
+				World.model3DObj = new AR.Model('earth.wt3', {
+
+//		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 0.2,
@@ -67,14 +69,16 @@ var World = {
 	toggleHelpMessage: function() {
 		console.log('toggleHelpMessage called');
 		var helpMessageElement = document.getElementById('help_panel');
+
 		if(World.helpMessageShows){
-			helpMessageElement.parentElement.removeChild(helpMessageElement);
+			helpMessageElement.style.display = 'none';
 		}
 		else{
-			helpMessageElement.parentElement.appendChild(helpMessageElement);
+			helpMessageElement.style.display = 'block';
 		}
 
 		World.helpMessageShows = !(World.helpMessageShows);
+		console.log('helpMessageShows: ' + World.helpMessageShows);
 		World.addInteractionEventListener();
 	},
 
@@ -183,12 +187,15 @@ var World = {
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
 		window.addEventListener("resize", World.checkOrientation, false);
 		window.addEventListener("orientationchange", World.checkOrientation, false);
+		document.getElementById("help_button_anchor").addEventListener("click", World.toggleHelpMessage);
 		if(!World.helpMessageShows){
 			document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
             document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
 		}
 		if(World.helpMessageShows){
 			document.getElementById("close_x").addEventListener("click", World.toggleHelpMessage);
+			document.getElementById(World.interactionContainer).removeEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).removeEventListener('touchmove', World.handleTouchMove, false);
 		}
 	}
 
