@@ -57,10 +57,16 @@ Working on the project meant overcoming several challenges, including the follow
 Setup
 -----
 To run the app:
+
 1. Download [Android Studio](http://developer.android.com/sdk/index.html)
+
 2. Fork this repository and then clone it using `git clone <url>`
+
 3. cd into the project
-4. On your Android phone, go to 'Settings' and find 'Build number' (usually in 'About device'). Tap on 'Build number' seven times. The 'Developer options' selection will now be available. In there, check the box next to 'USB debugging'
+
+4. On your Android phone, go to 'Settings' and find 'Build number' (usually in 'About device'). Tap on 'Build number' seven times. The
+'Developer options' selection will now be available. In there, check the box next to 'USB debugging'
+
 5. Open the FurnituAR folder in Android Studio. Connect your Android phone to your computer using a USB cable and click on the ► (play) button in Android studio. This will cause the app to be built on your phone, and then to run
 
 Happy furniture-hunting!
