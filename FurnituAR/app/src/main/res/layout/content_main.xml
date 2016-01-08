@@ -34,7 +34,7 @@
             android:layout_height="44dp"
             android:layout_gravity="center"
             android:text="SofAR"
-            android:textColor="#ffffff"
+            android:textColor="#1744c8"
             android:id="@+id/openingTitle"
             android:textSize="35sp" />
 
