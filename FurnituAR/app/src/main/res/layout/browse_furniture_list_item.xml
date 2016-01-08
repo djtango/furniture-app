@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip"
-    android:background="#fff8ea">
+    android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/furniture_list_image_view"
@@ -22,16 +22,19 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/furniture_list_image_view"
+        android:layout_toRightOf="@+id/furniture_list_image_view"
         android:gravity="center_vertical"
         android:text="Title"
         android:textColor="#121216"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:height="20dp" />
 
     <TextView
         android:id="@+id/furniture_list_description_text_view"
         android:layout_width="fill_parent"
-        android:layout_height="30dip"
+        android:layout_height="50dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/furniture_list_image_view"

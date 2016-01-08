@@ -28,12 +28,27 @@
         tools:context="com.example.deon.furnituar.MainActivity"
         tools:showIn="@layout/activity_main">
 
+
+        <TextView
+            android:layout_width="101dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:text="SofAR"
+            android:textColor="#1744c8"
+            android:id="@+id/openingTitle"
+            android:textSize="35sp" />
+
+
         <Button
             android:id="@+id/opt1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/landing_first_option"
-            android:onClick="browseFurniture"/>
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:layout_width="127dp"
+            android:layout_height="29dp"
+            android:background="@drawable/buttonshape"
+            android:onClick="browseFurniture" />
+
         <ImageView
             android:id="@+id/animated_image"
             android:layout_width="wrap_content"
