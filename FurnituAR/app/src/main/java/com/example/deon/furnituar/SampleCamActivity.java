@@ -26,8 +26,6 @@ import com.wikitude.architect.ArchitectView.CaptureScreenCallback;
 import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
 import com.wikitude.architect.StartupConfiguration.CameraPosition;
 
-//import com.example.deon.furnituar.R;
-
 public class SampleCamActivity extends AbstractArchitectCamActivity implements SensorEventListener{
 
 	/**
@@ -225,9 +223,6 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 		super.onPostCreate(savedInstanceState);
 		String[] filename = {"\"" + getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE) + "\""};
 		Log.d("selected_furniture", getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE));
-//		String[] filename = new String[1];
-//		filename[0] = "";
-//		Log.d("passing World.init:", filename[0] );
 		callJavaScript("World.init", filename);
 	}
 
@@ -252,7 +247,6 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 			stream.write(jsonString.getBytes());
 		} finally {
 			stream.close();
-//			Log.d("ARVIEW", "JSON Written: " + jsonString);
 		}
 	}
 
