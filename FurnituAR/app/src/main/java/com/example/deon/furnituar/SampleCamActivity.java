@@ -3,6 +3,7 @@ package com.example.deon.furnituar;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -166,6 +167,7 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 	Sensor accelerometer;
 	Sensor magnetometer;
 	float azimuth;
+	private String jsonString;
 
 	public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
@@ -183,8 +185,7 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 			if (success) {
 				float orientation[] = new float[3];
 				SensorManager.getOrientation(R, orientation);
-				azimuth = orientation[0];
-//				Log.d("ARVIEW-DEBUG", Float.toString(azimuth));
+				azimuth = (orientation[0] < 0) ? -orientation[0] + (float)Math.PI : orientation[0];
 				try {
 					writeBearingToJSON(azimuth);
 				} catch (IOException e) {
@@ -194,12 +195,20 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 		}
 	}
 
+	public String getJSON() {
+		return jsonString;
+	}
+
+	ServerSocket serverSocket;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate( savedInstanceState );
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+		Thread socketServerThread = new Thread(new SocketServerThread(this));
+		socketServerThread.start();
 	}
 
 	@Override
@@ -217,12 +226,26 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 	private void writeBearingToJSON(Float azimuth) throws IOException {
 		File file = new File(getExternalCacheDir(), "bearing.json");
 		FileOutputStream stream = new FileOutputStream(file);
-		String jsonString = "{'bearing': " + azimuth + "}";
+		jsonString = "{\"bearing\": " + azimuth + ",\n" +
+				"\"selection\": \"" + getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE)+ "\"}";
 		try {
 			stream.write(jsonString.getBytes());
 		} finally {
 			stream.close();
 //			Log.d("ARVIEW", "JSON Written: " + jsonString);
+		}
+	}
+
+	@Override
+	protected  void onDestroy() {
+		super.onDestroy();
+
+		if (serverSocket != null) {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

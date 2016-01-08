@@ -6,11 +6,11 @@ console.log('x-bearing: ' + selectionData.bearingE);
 var World = {
 	loaded: false,
 	rotating: false,
+	jsonData: undefined,
 	lastTouch: {
 		x: 0,
 		y: 0
 	},
-	bearing: undefined,
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
 	previousOrientation: undefined,
@@ -22,8 +22,7 @@ var World = {
 
 	createModelAtLocation: function createModelAtLocationFn() {
 
-		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
-
+		var location = new AR.RelativeLocation(null, selectionData.bearingN * 15, selectionData.bearingE * 15, 1);
 		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
@@ -98,10 +97,10 @@ var World = {
 				x: 0,
 				y: 0
 			};
-//			var remappedMovement = World.calculateMovement;
+			var realignedMovement = World.calculateMovement(touch);
 
-			movement.x = World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
-			movement.y = World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
+			movement.x = realignedMovement.x // World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
+			movement.y = realignedMovement.y // World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
@@ -160,17 +159,18 @@ var World = {
 	},
 
 	calculateMovement: function(touch) {
-		var remappedMovement = { 'x': 0, 'y': 0 };
+		var realignedMovement = { 'x': 0, 'y': 0 };
 		var diffX = World.lastTouch.x - touch.x;
 		var diffY = World.lastTouch.y - touch.y;
-		console.log("diffX: " + diffX + "; diffY: " + diffY);
-		var bearing = World.bearing;
-		remappedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
-		remappedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
-		remappedMovement.x = -remappedMovement.x;
-		remappedMovement.y = -remappedMovement.y;
-		console.log(remappedMovement);
-		return remappedMovement;
+		var bearing = World.jsonData.bearing;
+		console.log("calculateMovement.bearing: " + bearing);
+		realignedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
+		realignedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
+		realignedMovement.x = -realignedMovement.x;
+		realignedMovement.y = -realignedMovement.y;
+		console.log("diffX: " + diffX + "; newX: " + realignedMovement.x);
+		console.log("diffY: " + diffY + "; newY: " + realignedMovement.y);
+		return realignedMovement;
 	},
 
 	calculateXMovement: function(touch) {
@@ -213,26 +213,14 @@ var World = {
 
 World.init();
 
-//function readBearingJSON() {
-//	var items = [];
-//	console.log("readBearingJSON");
-//	$.getJSON("file:///sdcard/Android/data/com.example.deon.furnituar/cache/bearing.json", function(data) {
-//		console.log(data);
-//		$.each(data, function(key, value) {
-//		console.log(data);
-//		console.log("key: " + key + "; value: " + value);
-//			items.push({key: value});
-//		});
-//	})
-//	return items;
-//}
-//function alignAxes(json) {
-//	World.userBearing = json.bearing;
-//}
-//$(document).ready(function() {
-//	console.log("document ready");
-//    setInterval(function() {
-//        var json = readBearingJSON();
-//        alignAxes(json);
-//    }, 333);
-//});
+function readJSON() {
+	$.getJSON("http://localhost:43770", function(data) {
+		World.jsonData = data;
+	})
+}
+$(document).ready(function() {
+    setInterval(function() {
+        readJSON();
+    }, 250);
+});
+
