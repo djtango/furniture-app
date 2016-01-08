@@ -53,8 +53,8 @@ body {
 
     #arrows{
        position: absolute;
-       top: 290px;
-       left: 29%;
+        top: 350px;
+        left: 37%;
     }
 }
 
@@ -92,8 +92,8 @@ body {
 
     #arrows {
         position: absolute;
-        top: 122px;
-        left: 36%;
+        top: 158px;
+        left: 41%;
     }
 }
 
@@ -126,9 +126,6 @@ a.close_button{
 }
 
 #rotate_translate_anchor {
-   color: #fff;
-   background-color: #6496c8;
-   text-shadow: -1px 1px #417cb8;
    border: none;
    font-family: Arial;
    font-size: 12px;
@@ -143,9 +140,6 @@ a.close_button{
 }
 
 #raise_anchor {
-   color: #fff;
-   background-color: #6496c8;
-   text-shadow: -1px 1px #417cb8;
    border: none;
    font-family: Arial;
    font-size: 12px;
@@ -156,9 +150,6 @@ a.close_button{
 }
 
 #lower_anchor {
-   color: #fff;
-   background-color: #6496c8;
-   text-shadow: -1px 1px #417cb8;
    border: none;
    font-family: Arial;
    font-size: 12px;
@@ -175,9 +166,6 @@ a.close_button{
 }
 
 #help_button_anchor {
-   color: #fff;
-   background-color: #6496c8;
-   text-shadow: -1px 1px #417cb8;
    border: none;
    font-family: Arial;
    font-size: 12px;
@@ -185,4 +173,28 @@ a.close_button{
    text-decoration: none;
    position: relative;
    top: 40px;
+}
+.myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #9fb4f2;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #9fb4f2;
+	box-shadow:inset 0px 1px 0px 0px #9fb4f2;
+	background-color:#9fb4f2;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9fb4f2;
+}
+.myButton:hover {
+	background-color:#9fb4f2;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
 }
