@@ -13,9 +13,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.wikitude.architect.ArchitectView;
@@ -185,7 +187,11 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 			if (success) {
 				float orientation[] = new float[3];
 				SensorManager.getOrientation(R, orientation);
-				azimuth = (orientation[0] < 0) ? -orientation[0] + (float)Math.PI : orientation[0];
+				float newAzimuth = (orientation[0] < 0) ? 2 * (float)Math.PI + orientation[0] : orientation[0];
+				float diffAzimuth = newAzimuth - getIntent().getExtras().getFloat(BrowseFurnitureActivity.AZIMUTH);
+				azimuth = diffAzimuth;
+				String[] callJSArg = {Float.toString(azimuth)};
+				callJavaScript("World.setBearingExternally", callJSArg);
 				try {
 					writeBearingToJSON(azimuth);
 				} catch (IOException e) {
@@ -206,9 +212,23 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			WebView.setWebContentsDebuggingEnabled(true);
+		}
 
 		Thread socketServerThread = new Thread(new SocketServerThread(this));
 		socketServerThread.start();
+	}
+
+	@Override
+	public void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		String[] filename = {"\"" + getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE) + "\""};
+		Log.d("selected_furniture", getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE));
+//		String[] filename = new String[1];
+//		filename[0] = "";
+//		Log.d("passing World.init:", filename[0] );
+		callJavaScript("World.init", filename);
 	}
 
 	@Override

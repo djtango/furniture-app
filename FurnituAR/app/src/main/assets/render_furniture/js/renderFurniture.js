@@ -15,15 +15,16 @@ var World = {
 	interactionContainer: 'gestureContainer',
 	previousOrientation: undefined,
 	helpMessageShows: true,
+	externalBearing: 0,
 
-	init: function initFn() {
-		this.createModelAtLocation();
+	init: function initFn(filename) {
+		this.createModelAtLocation(filename);
 	},
 
-	createModelAtLocation: function createModelAtLocationFn() {
+	createModelAtLocation: function createModelAtLocationFn(filename) {
 
-		var location = new AR.RelativeLocation(null, selectionData.bearingN * 15, selectionData.bearingE * 15, 1);
-		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
+		var location = new AR.RelativeLocation(null, selectionData.bearingN * 50, selectionData.bearingE * 50, 0);
+		World.model3DObj = new AR.Model(filename + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
 				x: 0.2,
@@ -162,7 +163,8 @@ var World = {
 		var realignedMovement = { 'x': 0, 'y': 0 };
 		var diffX = World.lastTouch.x - touch.x;
 		var diffY = World.lastTouch.y - touch.y;
-		var bearing = World.jsonData.bearing;
+//		var bearing = World.jsonData.bearing;
+		var bearing = World.externalBearing;
 		console.log("calculateMovement.bearing: " + bearing);
 		realignedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
 		realignedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
@@ -190,8 +192,12 @@ var World = {
 		}
 	},
 
+	setBearingExternally: function(bearing) {
+		World.externalBearing = bearing;
+//		console.log("World.externalBearing: " + World.externalBearing);
+	},
+
 	addInteractionEventListener: function addInteractionEventListenerFn() {
-		console.log('addInteractionEventListener called')
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
 		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
@@ -211,16 +217,20 @@ var World = {
 
 };
 
-World.init();
+//World.init();
 
 function readJSON() {
-	$.getJSON("http://localhost:43770", function(data) {
-		World.jsonData = data;
-	})
+	$.getJSON("http://localhost:43770")
+		.done(function(data) { World.jsonData = data;
+			console.log("success, data.bearing: " + data.bearing);
+		}).fail(function(jqxhr, textStatus, error) {
+			var err = textStatus + ", " + error;
+			console.log(err);
+		});
 }
-$(document).ready(function() {
-    setInterval(function() {
-        readJSON();
-    }, 250);
-});
+//$(document).ready(function() {
+//    setInterval(function() {
+//        readJSON();
+//    }, 250);
+//});
 

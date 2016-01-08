@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import java.io.IOException;
 public class BrowseFurnitureActivity extends AppCompatActivity {
 
     public final static String SELECTED_FURNITURE = "com.example.deon.furnituar.BrowseFurnitureActivity.SELECTED_FURNITURE";
+    public final static String AZIMUTH = "com.example.deon.furnituar.BrowseFurnitureActivity.AZIMUTH";
 
 
 
@@ -72,7 +74,8 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                 if (success) {
                     float orientation[] = new float[3];
                     SensorManager.getOrientation(R, orientation);
-                    azimuth = orientation[0];
+                    azimuth = (orientation[0] < 0) ? 2 * (float)Math.PI + orientation[0] : orientation[0];
+//                    Log.d("azimuth, BROWSEFURNITURE", Float.toString(azimuth));
                 }
             }
         }
@@ -113,6 +116,7 @@ public class BrowseFurnitureActivity extends AppCompatActivity {
                             }
                             Intent loadRenderFurnitureActivity = new Intent(getActivity(), SampleCamActivity.class);
                             loadRenderFurnitureActivity.putExtra(SELECTED_FURNITURE, selection);
+                            loadRenderFurnitureActivity.putExtra(AZIMUTH, azimuth);
                             Log.d("BROWSEFURNITUREACTIVITY", selection);
                             startActivity(loadRenderFurnitureActivity);
                         }

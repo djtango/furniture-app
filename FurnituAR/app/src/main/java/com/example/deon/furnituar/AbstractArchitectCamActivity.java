@@ -369,7 +369,7 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 	 * @param methodName
 	 * @param arguments
 	 */
-	private void callJavaScript(final String methodName, final String[] arguments) {
+	public void callJavaScript(final String methodName, final String[] arguments) {
 		final StringBuilder argumentsString = new StringBuilder("");
 		for (int i= 0; i<arguments.length; i++) {
 			argumentsString.append(arguments[i]);
