@@ -23,7 +23,6 @@ var World = {
 	createModelAtLocation: function createModelAtLocationFn() {
 
 		var location = new AR.RelativeLocation(null, selectionData.bearingN * 15, selectionData.bearingE * 15, 1);
-
 		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
 			scale: {
@@ -163,13 +162,14 @@ var World = {
 		var realignedMovement = { 'x': 0, 'y': 0 };
 		var diffX = World.lastTouch.x - touch.x;
 		var diffY = World.lastTouch.y - touch.y;
-		console.log("diffX: " + diffX + "; diffY: " + diffY);
 		var bearing = World.jsonData.bearing;
+		console.log("calculateMovement.bearing: " + bearing);
 		realignedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
 		realignedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
 		realignedMovement.x = -realignedMovement.x;
 		realignedMovement.y = -realignedMovement.y;
-		console.log("newX :" + realignedMovement.x + "; newY: " + realignedMovement.y);
+		console.log("diffX: " + diffX + "; newX: " + realignedMovement.x);
+		console.log("diffY: " + diffY + "; newY: " + realignedMovement.y);
 		return realignedMovement;
 	},
 
@@ -215,13 +215,12 @@ World.init();
 
 function readJSON() {
 	$.getJSON("http://localhost:43770", function(data) {
-		console.log(JSON.stringify(data));
 		World.jsonData = data;
 	})
 }
 $(document).ready(function() {
     setInterval(function() {
         readJSON();
-    }, 333);
+    }, 250);
 });
 

@@ -185,8 +185,7 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 			if (success) {
 				float orientation[] = new float[3];
 				SensorManager.getOrientation(R, orientation);
-				azimuth = orientation[0];
-//				Log.d("ARVIEW-DEBUG", Float.toString(azimuth));
+				azimuth = (orientation[0] < 0) ? -orientation[0] + (float)Math.PI : orientation[0];
 				try {
 					writeBearingToJSON(azimuth);
 				} catch (IOException e) {
@@ -227,7 +226,8 @@ public class SampleCamActivity extends AbstractArchitectCamActivity implements S
 	private void writeBearingToJSON(Float azimuth) throws IOException {
 		File file = new File(getExternalCacheDir(), "bearing.json");
 		FileOutputStream stream = new FileOutputStream(file);
-		jsonString = "{\"bearing\": " + azimuth + "}";
+		jsonString = "{\"bearing\": " + azimuth + ",\n" +
+				"\"selection\": \"" + getIntent().getExtras().getString(BrowseFurnitureActivity.SELECTED_FURNITURE)+ "\"}";
 		try {
 			stream.write(jsonString.getBytes());
 		} finally {
