@@ -48,7 +48,7 @@ var World = {
 		var obj = new AR.GeoObject(location, {
             drawables: {
                cam: [this.model3DObj],
-               indicator: [indicatorDrawable]
+//               indicator: [indicatorDrawable]
             }
         });
 
