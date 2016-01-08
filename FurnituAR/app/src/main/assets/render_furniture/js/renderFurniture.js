@@ -6,14 +6,15 @@ console.log('x-bearing: ' + selectionData.bearingE);
 var World = {
 	loaded: false,
 	rotating: false,
+	jsonData: undefined,
 	lastTouch: {
 		x: 0,
 		y: 0
 	},
-	bearing: undefined,
 	rotateOrTranslate: 'translate',
 	interactionContainer: 'gestureContainer',
-//	previousOrientation: undefined,
+	previousOrientation: undefined,
+	helpMessageShows: true,
 
 	init: function initFn() {
 		this.createModelAtLocation();
@@ -21,7 +22,7 @@ var World = {
 
 	createModelAtLocation: function createModelAtLocationFn() {
 
-		var location = new AR.RelativeLocation(null, selectionData.bearingN * 5, selectionData.bearingE * 5, 1);
+		var location = new AR.RelativeLocation(null, selectionData.bearingN * 15, selectionData.bearingE * 15, 1);
 
 		World.model3DObj = new AR.Model(selectionData.selection + '.wt3', {
 			onLoaded: this.worldLoaded,
@@ -60,6 +61,22 @@ var World = {
 		e.parentElement.removeChild(e);
 	},
 
+	toggleHelpMessage: function() {
+		console.log('toggleHelpMessage called');
+		var helpMessageElement = document.getElementById('help_panel');
+
+		if(World.helpMessageShows){
+			helpMessageElement.style.display = 'none';
+		}
+		else{
+			helpMessageElement.style.display = 'block';
+		}
+
+		World.helpMessageShows = !(World.helpMessageShows);
+		console.log('helpMessageShows: ' + World.helpMessageShows);
+		World.addInteractionEventListener();
+	},
+
 	handleTouchStart: function handleTouchStartFn(event) {
 		World.swipeAllowed = true;
 
@@ -81,10 +98,10 @@ var World = {
 				x: 0,
 				y: 0
 			};
-			var remappedMovement = World.calculateMovement;
+			var realignedMovement = World.calculateMovement(touch);
 
-			movement.x = remappedMovement.x; // (World.lastTouch.x - touch.x) * -1;
-			movement.y = remappedMovement.y; // (World.lastTouch.y - touch.y) * -1;
+			movement.x = realignedMovement.x // World.calculateXMovement(touch); // (World.lastTouch.x - touch.x) * -1;
+			movement.y = realignedMovement.y // World.calculateYMovement(touch); // (World.lastTouch.y - touch.y) * -1;
 
 			if(World.rotateOrTranslate === 'translate'){
 
@@ -107,14 +124,14 @@ var World = {
 
     raiseButton: function() {
 
-    	World.model3DObj.translate.y += 0.8;
+    	World.model3DObj.translate.y += 1.2;
     	console.log('translate Y: ' + World.model3DObj.translate.y)
 
     },
 
 	lowerButton: function() {
 
-		World.model3DObj.translate.y -= 0.8;
+		World.model3DObj.translate.y -= 1.2;
 		console.log('translate Y: ' + World.model3DObj.translate.y)
 
 	},
@@ -143,17 +160,17 @@ var World = {
 	},
 
 	calculateMovement: function(touch) {
-		var remappedMovement = { 'x': 0, 'y': 0 };
+		var realignedMovement = { 'x': 0, 'y': 0 };
 		var diffX = World.lastTouch.x - touch.x;
 		var diffY = World.lastTouch.y - touch.y;
 		console.log("diffX: " + diffX + "; diffY: " + diffY);
-		var bearing = World.bearing;
-		remappedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
-		remappedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
-		remappedMovement.x = -remappedMovement.x;
-		remappedMovement.y = -remappedMovement.y;
-		console.log(remappedMovement);
-		return remappedMovement;
+		var bearing = World.jsonData.bearing;
+		realignedMovement.x = diffX * Math.cos(bearing) + diffY * Math.sin(bearing);
+		realignedMovement.y = diffY * Math.cos(bearing) + diffX * Math.sin(bearing);
+		realignedMovement.x = -realignedMovement.x;
+		realignedMovement.y = -realignedMovement.y;
+		console.log("newX :" + realignedMovement.x + "; newY: " + realignedMovement.y);
+		return realignedMovement;
 	},
 
 	calculateXMovement: function(touch) {
@@ -174,35 +191,37 @@ var World = {
 	},
 
 	addInteractionEventListener: function addInteractionEventListenerFn() {
-//		console.log('addInteractionEventListener called')
-		document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
-		document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
+		console.log('addInteractionEventListener called')
 		document.getElementById("rotate_translate_anchor").addEventListener("click", World.rotateTranslateToggle);
 		document.getElementById("raise_anchor").addEventListener("click", World.raiseButton);
 		document.getElementById("lower_anchor").addEventListener("click", World.lowerButton);
 		window.addEventListener("resize", World.checkOrientation, false);
 		window.addEventListener("orientationchange", World.checkOrientation, false);
+		document.getElementById("help_button_anchor").addEventListener("click", World.toggleHelpMessage);
+		if(!World.helpMessageShows){
+			document.getElementById(World.interactionContainer).addEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).addEventListener('touchmove', World.handleTouchMove, false);
+		}
+		if(World.helpMessageShows){
+			document.getElementById("close_x").addEventListener("click", World.toggleHelpMessage);
+			document.getElementById(World.interactionContainer).removeEventListener('touchstart', World.handleTouchStart, false);
+            document.getElementById(World.interactionContainer).removeEventListener('touchmove', World.handleTouchMove, false);
+		}
 	}
 
 };
 
 World.init();
 
-function readBearingJSON() {
-	var jsonData;
+function readJSON() {
 	$.getJSON("http://localhost:43770", function(data) {
-		console.log("data.bearing: " + data.bearing);
-		items = data;
+		console.log(JSON.stringify(data));
+		World.jsonData = data;
 	})
-	return jsonData;
-}
-function alignAxes(json) {
-	World.userBearing = json.bearing;
 }
 $(document).ready(function() {
-//	console.log("document ready");
     setInterval(function() {
-        var json = readBearingJSON();
-        alignAxes(json);
+        readJSON();
     }, 333);
 });
+
