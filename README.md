@@ -36,7 +36,7 @@ I would like to see the 3D model within a 3D view of the relevant room in my hou
 After some deliberation over which approach to take, we decided to make use of Augmented Reality, adding the computer-generated models to the user's camera view. We used the following technologies and languages to achieve our aim:
 
 * [Wikitude](http://www.wikitude.com/), a mobile-focused Augmented Reality technology. We extracted Wikitude's existing Javascript functions for use in our app.
-* Java - much of the app uses this language, which is the native language for Android development. Java was new to all of us, so we all had to learn adapt.
+* Java - much of the app uses this language, which is the native language for Android development. Java was new to all of us, so we had to learn to adapt.
 * Javascript. This is a 'hybrid' app, rather than a native one, meaning that Java and Javascript are used in tandem. The Augmented Reality features are implemented using Javascript.
 * HTML & CSS - the camera view is laid over a traditional HTML template.
 
