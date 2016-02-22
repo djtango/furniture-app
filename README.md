@@ -1,3 +1,8 @@
+`github.com/fmd/gogoljs`
+said i'd show this to you on friday. couldn't find a contact for you. feel free to close the PR. p.s. my code for it is godawful atm
+
+
+
 SofAR
 ================================
 
